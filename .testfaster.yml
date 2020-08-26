@@ -1,4 +1,4 @@
-# Get me a Kube cluster with Kubeflow and Pachyderm on it.
+# Get me a Kube cluster with Kubeflow (and later, for demo purposes Pachyderm) on it.
 
 name: KFData
 

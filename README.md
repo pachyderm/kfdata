@@ -15,4 +15,4 @@ Prototype implementation of KFData proposal - see [bit.ly/kfdata](https://bit.ly
   * We recognize that TFX has some similarities, but don’t want to force users to rewrite their pipelines in TFX DSL to take advantage of KFData
   * NB: added TFX section to proposal doc
 * In 4-6 weeks, we’ll bring a POC & demo to this WG
-  * Target delivery for inclusion and promotion in Kubeflow 1.2 -- if this WG is supportive?
+  * Target delivery for inclusion and promotion in Kubeflow 1.2 -- if the KFP WG is supportive

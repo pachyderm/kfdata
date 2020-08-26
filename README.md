@@ -13,6 +13,6 @@ Prototype implementation of KFData proposal - see [bit.ly/kfdata](https://bit.ly
   * Treat each Dataset as an Artifact
 * Hopefully reuse work across TFX/KFData efforts
   * We recognize that TFX has some similarities, but don’t want to force users to rewrite their pipelines in TFX DSL to take advantage of KFData
-  * NB: added TFX section to proposal doc
+  * NB: added TFX section to [proposal doc](https://docs.google.com/document/d/1ccIM5-khU52HuZKSujRmgDyzxyzJZ6cmI597uqdh-ek/edit)
 * In 4-6 weeks, we’ll bring a POC & demo to this WG
   * Target delivery for inclusion and promotion in Kubeflow 1.2 -- if the KFP WG is supportive

@@ -5,11 +5,12 @@ name: KFData
 base:
 
   preload_files:
-  - { download: https://github.com/kubeflow/manifests/blob/master/kfdef/kfctl_k8s_istio.v1.1.0.yaml,
-      to: ./yaml/ }  # NB: Will mkdir yaml if it doesn't exist
+  - download: https://github.com/kubeflow/manifests/blob/master/kfdef/kfctl_k8s_istio.v1.1.0.yaml
+    to: ./yaml/  # NB: Will mkdir yaml if it doesn't exist
 
   # Or, to upload from local ctx where testctl is run from (e.g. in git repo):
-  # - { copy: ./kfctl_k8s_istio.v1.1.0.yaml, to: ./yaml/ }
+  # - copy: ./kfctl_k8s_istio.v1.1.0.yaml
+  #   to: ./yaml/
 
   prewarm_script: |-
     #!/bin/bash

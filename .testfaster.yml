@@ -4,6 +4,10 @@ name: KFData
 
 base:
 
+  # TODO: make these optional
+  preload_docker_images: []
+  kernel_image: "quay.io/testfaster/ignite-kernel"
+
   os_dockerfile: |-
     FROM quay.io/testfaster/kube-ubuntu
     RUN mkdir -p /workdir/yaml

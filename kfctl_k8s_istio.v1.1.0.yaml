@@ -77,13 +77,11 @@ spec:
         name: manifests
         path: knative/installs/generic
     name: knative
-
-## https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-681999886
-#  - kustomizeConfig:
-#      repoRef:
-#        name: manifests
-#        path: kfserving/installs/generic
-#    name: kfserving
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: kfserving/installs/generic
+    name: kfserving
 
   # Spartakus is a separate applications so that kfctl can remove it
   # to disable usage reporting

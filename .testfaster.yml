@@ -38,6 +38,7 @@ base:
     kfctl apply -V -f ${CONFIG_URI}
     cd ${BASE_DIR}
 
+  # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220
   kubernetes_version: 'v1.17.11'
 
 runtime:

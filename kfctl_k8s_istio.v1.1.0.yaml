@@ -59,11 +59,14 @@ spec:
         name: manifests
         path: admission-webhook/bootstrap/overlays/application
     name: bootstrap
+
+## https://github.com/kubeflow/kubeflow/issues/5246
 #  - kustomizeConfig:
 #      repoRef:
 #        name: manifests
 #        path: stacks/kubernetes/application/spark-operator
 #    name: spark-operator
+
   - kustomizeConfig:
       repoRef:
         name: manifests
@@ -74,13 +77,18 @@ spec:
         name: manifests
         path: knative/installs/generic
     name: knative
-  - kustomizeConfig:
-      repoRef:
-        name: manifests
-        path: kfserving/installs/generic
-    name: kfserving
+
+## https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-681999886
+#  - kustomizeConfig:
+#      repoRef:
+#        name: manifests
+#        path: kfserving/installs/generic
+#    name: kfserving
+
   # Spartakus is a separate applications so that kfctl can remove it
   # to disable usage reporting
+
+## https://github.com/kubeflow/kubeflow/issues/5246
 #  - kustomizeConfig:
 #      repoRef:
 #        name: manifests
@@ -91,6 +99,7 @@ spec:
 #        name: manifests
 #        path: stacks/kubernetes/application/tensorboard
 #    name: tensorboard
+
   repos:
   - name: manifests
     uri: https://github.com/kubeflow/manifests/archive/v1.1-branch.tar.gz

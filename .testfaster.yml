@@ -8,6 +8,8 @@ base:
   preload_docker_images: []
   kernel_image: "quay.io/testfaster/ignite-kernel"
 
+  # TODO: add support for dockerfile contexts to testfaster, so that we don't have to go via raw.githubusercontent.com
+  # for the kfctl_k8s_istio.v1.1.0.yaml
   os_dockerfile: |-
     FROM quay.io/testfaster/kube-ubuntu
 
@@ -37,6 +39,17 @@ base:
     cd ${KF_DIR}
     kfctl apply -V -f ${CONFIG_URI}
     cd ${BASE_DIR}
+
+    # TODO: move the checking for unready pods into testfaster (split startup)
+    unready_pods=1
+    while ((unready_pods > 0)) ; do
+        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
+        echo $unready_pods unready pods
+        sleep 1
+    done
+
+    echo "Everything looks good:"
+    kubectl get po --all-namespaces
 
   # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220
   kubernetes_version: 'v1.17.11'

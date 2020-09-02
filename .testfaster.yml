@@ -49,6 +49,7 @@ base:
     done
 
     echo "Got all-running pods, but waiting 10 seconds and checking again to check if we reached a stable state"
+    sleep 10
 
     unready_pods=1
     while ((unready_pods > 0)) ; do

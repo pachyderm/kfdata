@@ -48,6 +48,15 @@ base:
         sleep 1
     done
 
+    echo "Got all-running pods, but waiting 10 seconds and checking again to check if we reached a stable state"
+
+    unready_pods=1
+    while ((unready_pods > 0)) ; do
+        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
+        echo $unready_pods unready pods
+        sleep 1
+    done
+
     echo "Everything looks good:"
     kubectl get po --all-namespaces
 

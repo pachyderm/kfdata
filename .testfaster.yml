@@ -70,3 +70,4 @@ runtime:
   disk: 100GB
 
 prewarm_pool_size: 3
+max_pool_size: 9

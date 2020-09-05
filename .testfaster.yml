@@ -71,3 +71,4 @@ runtime:
 
 prewarm_pool_size: 3
 max_pool_size: 9
+default_lease_timeout: "" # Never timeout leases, as we use this for dev

@@ -39,9 +39,6 @@ Will generate `example/output/model.pth`.
 TODO
 
 ```
-testfaster get
-export KUBECONFIG=$(pwd)/kubeconfig
-
 # Uploads the model we trained
 ./push-model-to-minio.sh
 

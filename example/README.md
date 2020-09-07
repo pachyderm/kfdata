@@ -8,9 +8,7 @@ Requires:
 
 ## Get demo cluster
 
-You'll need a [testfaster account](https://testfaster.ci).
-
-Then get your [access token](https://testfaster.ci/access_token).
+You'll need a [testfaster account](https://testfaster.ci/login), then get your [access token](https://testfaster.ci/access_token).
 
 ```
 testctl login --token "<your token>"

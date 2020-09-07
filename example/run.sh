@@ -1,3 +1,4 @@
 #!/bin/bash
 docker build -t pytorch-example .
-docker run -ti pytorch-example python /app/text_sentiment_ngrams_tutorial.py
+mkdir -p output
+docker run -v $(pwd)/output:/app/output -ti pytorch-example python /app/text_sentiment_ngrams_tutorial.py

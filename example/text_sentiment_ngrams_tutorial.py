@@ -362,6 +362,7 @@ print("This is a %s news" %ag_news_label[predict(ex_text_str, model, vocab, 2)])
 # This is a Sports news
 #
 
+torch.save(model.state_dict(), "./output/model")
 
 ######################################################################
 # You can find the code examples displayed in this note

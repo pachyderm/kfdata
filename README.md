@@ -45,7 +45,7 @@ It does:
 It doesn't:
 * Use `func_to_container_op`, so there's manual docker build steps
 
-Hmm: [this](https://github.com/kubeflow/examples/pull/669/files) looks promising...
+Hmm: [this](https://github.com/kubeflow/examples/pull/669/files) looks promising... but it's documented as not working.
 
 Maybe extending the "Data passing in python components" example to read input data from somewhere...
 

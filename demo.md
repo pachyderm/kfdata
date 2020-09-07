@@ -7,12 +7,12 @@ Requires:
 - [testfaster](https://testfaster.ci)
 
 ## Get demo cluster
+
+You'll need a [testfaster account](https://testfaster.ci).
+
 ```
-(
-    cd example
-    testfaster get
-    export KUBECONFIG=$(pwd)/kubeconfig
-)
+testctl get
+export KUBECONFIG=$(pwd)/kubeconfig
 ```
 
 ## Train model

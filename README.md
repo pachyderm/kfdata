@@ -7,7 +7,7 @@ Prototype implementation of KFData proposal - see [pachdm.com/kfdata](https://pa
 
 # User stories
 
-1. User attaches dataset as reader to a pipeline spec, gets dataset env vars auto-populated
+1. User attaches dataset as reader to a pipeline spec, gets dataset env vars auto-populated (can use built-in Minio for this without Pachyderm)
 2. Pachyderm triggers an incremental (per-datum) pipeline run in KFData, gets env vars with capability-like access to subset of data to be processed
 
 
@@ -56,7 +56,17 @@ So let's make our own example.
 * kfp `func_to_container_op` with InputPath and OutputPath annotations, in a python script we can run easily to test KFData
 * make it use minio on the kubeflow cluster
 
-Does this help us 
+Does this help us decide how to attach Datasets as readers/writers to Pipelines, and DatasetSpec to a pipeline run creation request?
+
+Well, for one thing they should be somewhat orthogonal to InputPath and OutputPath.
+
+If KFP itself has code to read and write objects to/from object storage (which "data passing in python components" suggests), we should provide a way to connect Datasets to `{Input,Output}Path`s somehow... on the "outside" of a pipeline.
+
+So Datasets should be able to connect to the "outside ports" of a KFP.
+How we provide Dataset attachment to pipeline specs depends on the specifics of how the `{Input,Output}Path` internals work.
+
+Next step: go read the code for `{Input,Output}Path`.
+
 
 # Implementation
 
@@ -67,5 +77,5 @@ Does this help us
 * Hopefully reuse work across TFX/KFData efforts
   * We recognize that TFX has some similarities, but don’t want to force users to rewrite their pipelines in TFX DSL to take advantage of KFData
   * NB: added TFX section to [proposal doc](https://docs.google.com/document/d/1ccIM5-khU52HuZKSujRmgDyzxyzJZ6cmI597uqdh-ek/edit)
-* In 4-6 weeks, we’ll bring a POC & demo to this WG
-  * Target delivery for inclusion and promotion in Kubeflow 1.2 -- if the KFP WG is supportive
+* On October 14, we’ll aim to bring a POC & demo to this WG
+  * Target delivery for inclusion and promotion in next appropriate Kubeflow release -- if the KFP WG is supportive

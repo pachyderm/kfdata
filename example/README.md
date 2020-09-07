@@ -25,7 +25,7 @@ export KUBECONFIG=$(pwd)/kubeconfig
 )
 ```
 
-Will generate `example/model.pth`.
+Will generate `example/output/model.pth`.
 
 ## Deploy pipeline
 

@@ -10,9 +10,10 @@ Requires:
 
 You'll need a [testfaster account](https://testfaster.ci).
 
+Then get your [access token](https://testfaster.ci/access_token).
+
 ```
-export TOKEN="<token from [https://testfaster.ci/access_token](https://testfaster.ci/access_token)>"
-testctl login --token $TOKEN
+testctl login --token "<your token>"
 testctl get
 export KUBECONFIG=$(pwd)/kubeconfig
 ```

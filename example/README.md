@@ -1,4 +1,4 @@
-# Demo
+# KFData Demo
 
 In this example, we'll train a PyTorch classification model and then create a KFData inference pipeline for it with Kubeflow Pipelines and Pachyderm.
 
@@ -15,6 +15,8 @@ testctl login --token "<your token>"
 testctl get
 export KUBECONFIG=$(pwd)/kubeconfig
 ```
+
+This cluster has Kubeflow 1.1, KFData 0.1 and Pachyderm 1.11 preinstalled on it.
 
 ## Train model
 

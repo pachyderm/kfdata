@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-testctl get --config .testfaster.yml
+testctl get --config .testfaster.yml --drop-existing
 export KUBECONFIG=$(pwd)/kubeconfig
 export VERSION="$(git rev-parse HEAD)"
 export IMG=ghcr.io/pachyderm/kfdata:$VERSION

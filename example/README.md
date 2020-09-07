@@ -12,19 +12,24 @@ You'll need a [testfaster account](https://testfaster.ci/login), then get your [
 
 ```
 testctl login --token "<your token>"
-testctl get
+testctl get # TODO make this notice ../.testfaster.yml
 export KUBECONFIG=$(pwd)/kubeconfig
 ```
 
-This cluster has Kubeflow 1.1, KFData 0.1 and Pachyderm 1.11 preinstalled on it.
+This cluster has Kubeflow 1.1 and Pachyderm 1.11 [preinstalled](../.testfaster.yml) on it.
+
+## Deploy KFData to cluster
+
+TODO (something like ../test.sh)
+
+```
+./build-and-deploy-kfdata.sh
+```
 
 ## Train model
 
 ```
-(
-    cd example
-    ./train.sh
-)
+./train.sh
 ```
 
 Will generate `example/output/model.pth`.
@@ -34,24 +39,21 @@ Will generate `example/output/model.pth`.
 TODO
 
 ```
-(
-    cd example
-    testfaster get
-    export KUBECONFIG=$(pwd)/kubeconfig
+testfaster get
+export KUBECONFIG=$(pwd)/kubeconfig
 
-    # Uploads the model we trained
-    ./push-model-to-minio.sh
+# Uploads the model we trained
+./push-model-to-minio.sh
 
-    # Deploy the kfp pipeline that will do inference on new data
-    # TODO: how does kfp library connect to kubeflow cluster?
-    python inference_pipeline.py
+# Deploy the kfp pipeline that will do inference on new data
+# TODO: how does kfp library connect to kubeflow cluster?
+python inference_pipeline.py
 
-    # Push some data and see a Kubeflow pipeline triggered
-    ./inject-data.sh
+# Push some data and see a Kubeflow pipeline triggered
+./inject-data.sh
 
-    # Push some more data and see a Kubeflow pipeline triggered with only the
-    # incremental changes
-    ./inject-more-data.sh
-)
+# Push some more data and see a Kubeflow pipeline triggered with only the
+# incremental changes
+./inject-more-data.sh
 ```
 

@@ -56,6 +56,7 @@ So let's make our own example.
 * kfp `func_to_container_op` with InputPath and OutputPath annotations, in a python script we can run easily to test KFData
 * make it use minio on the kubeflow cluster
 
+Does this help us 
 
 # Implementation
 

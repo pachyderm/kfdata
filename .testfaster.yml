@@ -40,6 +40,8 @@ base:
     kfctl apply -V -f ${CONFIG_URI}
     cd ${BASE_DIR}
 
+    # TODO: install pachyderm here
+
     # TODO: move the checking for unready pods into testfaster (split startup)
     unready_pods=1
     while ((unready_pods > 0)) ; do

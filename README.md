@@ -5,6 +5,11 @@ Prototype implementation of KFData proposal - see [pachdm.com/kfdata](https://pa
 
 ![KFData design](kfdata-design.png)
 
+# User stories
+
+1. User attaches dataset as reader to a pipeline spec, gets dataset env vars auto-populated
+2. Pachyderm triggers an incremental (per-datum) pipeline run in KFData, gets env vars with capability-like access to subset of data to be processed
+
 # Implementation
 
 * Try using Admission Controllers to minimize changes needed to KFP

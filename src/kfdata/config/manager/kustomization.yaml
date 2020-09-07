@@ -5,4 +5,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: ghcr.io/pachyderm/kfdata
-  newTag: ead6ef1a225d7660a6bac1bd0d20b56f0c589c4d
+  newTag: 20f70f287f1138950e68d4b3ea0a929148b52f44

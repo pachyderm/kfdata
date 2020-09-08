@@ -1,6 +1,6 @@
 # KFData Demo
 
-In this example, we'll train a PyTorch classification model and then create a KFData inference pipeline for it with Kubeflow Pipelines and Pachyderm.
+In this example, we'll train a PyTorch text classification model and then create a KFData inference pipeline for it with Kubeflow Pipelines and Pachyderm.
 
 Requires:
 - [docker](https://docs.docker.com/engine/install/)

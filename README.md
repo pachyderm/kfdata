@@ -67,6 +67,12 @@ How we provide Dataset attachment to pipeline specs depends on the specifics of 
 
 Next step: go read the code for `{Input,Output}Path`.
 
+Here's one idea: the convention seems to be that you pass `gs://foo` paths as pipeline parameters, and it's up to the pipeline to list objects and open one and feed it to further pipeline steps as InputPath and InputTextFile types etc (TODO: verify this - if KFP/Argo uses object storage for data passing, can't it read from it for pipeline inputs too?).
+
+We could invent a new convention that a pipeline parameter `kfdata://foo:r` attaches KFData dataset `foo` as a reader, and `kfdata://bar:w` attaches `bar` as a writer, populating the appropriate env vars for, say, an S3 client library.
+
+There could be a corresponding `kfp` Python SDK module which is responsible for implementing the translation as a first pass. It could just go and find the Dataset in the Kubernetes API.
+
 
 # Implementation
 

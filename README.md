@@ -67,7 +67,7 @@ How we provide Dataset attachment to pipeline specs depends on the specifics of 
 
 Next step: go read the code for `{Input,Output}Path`.
 
-Here's one idea: the convention seems to be that you pass `gs://foo` paths as pipeline parameters, and it's up to the pipeline to list objects and open one and feed it to further pipeline steps as InputPath and InputTextFile types etc (TODO: verify this - if KFP/Argo uses object storage for data passing, can't it read from it for pipeline inputs too? Clarified in [this thread](https://github.com/kubeflow/pipelines/issues/3548#issuecomment-616045460): artifacts are only tracked after they're ingested into the system with e.g. a [`download_blob` component](https://raw.githubusercontent.com/kubeflow/pipelines/2dac60c/components/google-cloud/storage/download_blob/component.yaml)).
+Here's one idea: the convention seems to be that you pass `gs://foo` paths as pipeline parameters, and it's up to the pipeline to list objects and open one and feed it to further pipeline steps as InputPath and InputTextFile types etc (if KFP/Argo uses object storage for data passing, can't it read from it for pipeline inputs too? Clarified in [this thread](https://github.com/kubeflow/pipelines/issues/3548#issuecomment-616045460): artifacts are only tracked after they're ingested into the system with e.g. a [`download_blob` component](https://raw.githubusercontent.com/kubeflow/pipelines/2dac60c/components/google-cloud/storage/download_blob/component.yaml)).
 
 We could invent a new convention that a pipeline parameter `kfdata://foo:r` attaches KFData dataset `foo` as a reader, and `kfdata://bar:w` attaches `bar` as a writer, populating the appropriate env vars for, say, an S3 client library.
 

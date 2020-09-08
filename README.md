@@ -73,6 +73,8 @@ We could invent a new convention that a pipeline parameter `kfdata://foo:r` atta
 
 There could be a corresponding `kfp` Python SDK module which is responsible for implementing the translation as a first pass. It could just go and find the Dataset in the Kubernetes API.
 
+In the future it would be better, of course, if Datasets were a top level object in Kubeflow, creatable/listable in the UI and attachable in the pipeline run builder UI (just like the experiment picker).
+
 
 # Implementation
 

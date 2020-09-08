@@ -71,7 +71,7 @@ Here's one idea: the convention seems to be that you pass `gs://foo` paths as pi
 
 We could invent a new convention that a pipeline parameter `kfdata://foo:r` attaches KFData dataset `foo` as a reader, and `kfdata://bar:w` attaches `bar` as a writer, populating the appropriate env vars for, say, an S3 client library.
 
-There could be a corresponding `kfp` Python SDK module which is responsible for implementing the translation as a first pass. It could just go and find the Dataset in the Kubernetes API. Or, to begin with we could just implement it as a generic component that people can start using in their pipelines!
+There could be a corresponding `kfp` Python SDK module which is responsible for implementing the translation as a first pass. It could just go and find the Dataset in the Kubernetes API. Or, to begin with we could just implement it as a generic component that people can start using in their pipelines! Actually, that won't work, unless the KFData component can convert a KFData dataset name into environment variables and output them as outputValues, and then have the next component along take those env vars as inputValues and do something like `os.setenv(...)`. This might work for a POC but we'd want less boilerplate in the ultimate implementation.
 
 In the future it would be better, of course, if Datasets were a top level object in Kubeflow, creatable/listable in the UI and attachable in the pipeline run builder UI (just like the experiment picker).
 

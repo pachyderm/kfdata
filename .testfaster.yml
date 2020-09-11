@@ -41,6 +41,7 @@ base:
     cd ${BASE_DIR}
 
     # TODO: install pachyderm here
+    # TODO: install ibm dataset lifecycle framework
 
     # TODO: move the checking for unready pods into testfaster (split startup)
     unready_pods=1

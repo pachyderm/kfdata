@@ -77,6 +77,8 @@ In the future it would be better, of course, if Datasets were a top level object
 
 NB: in terms of Pachyderm integrating with Kubeflow Artifacts (for intermediate data passing), perhaps we can configure Argo/Kubeflow or whatever to use the Pachyderm S3 gateway as a place to write that intermediate data. And perhaps we can thread through some provenance information so that Pachyderm's provenance can "see through" the indirection of going via KFP Artifacts. This would allow Kubeflow provenance to extend "further back" than where it's ingested.
 
+Might we be able to do better than looking for magic pipeline parameters of a certain `kfdata://` form and instead prototype adding a new Datasets field to a pipeline spec, implemented with an admission controller? There's nothing stopping an admission controller stripping off a modified form of a pipeline spec, and then applying it to the Argo pods created, I suppose.
+
 
 # Implementation
 

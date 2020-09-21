@@ -13,6 +13,8 @@ base:
   os_dockerfile: |-
     FROM quay.io/testfaster/kube-ubuntu
 
+    RUN apt-get update && apt-get install -y build-essential gettext-base
+
     # kubeflow
     RUN curl -LO https://github.com/kubeflow/kfctl/releases/download/v1.1.0/kfctl_v1.1.0-0-g9a3621e_linux.tar.gz && \
         tar xf kfctl_v1.1.0-0-g9a3621e_linux.tar.gz && \
@@ -22,16 +24,18 @@ base:
     RUN wget -O /workdir/yaml/kfctl_k8s_istio.v1.1.0.yaml \
        https://raw.githubusercontent.com/pachyderm/kfdata/d851c16708cc2f18e3074aaf2a663594290b2556/kfctl_k8s_istio.v1.1.0.yaml
 
-    RUN curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.11.0/pachctl_1.11.0_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
+    RUN curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.11.0/pachctl_1.11.0_amd64.deb && dpkg -i /tmp/pachctl.deb
 
   prewarm_script: |-
     #!/bin/bash
+    set -euo pipefail
+
+    # install ibm dataset lifecycle framework
+    git clone https://github.com/pachyderm/dataset-lifecycle-framework
+    (cd dataset-lifecycle-framework; make deployment)
 
     # install pachyderm here
     pachctl deploy local
-
-    # TODO: install ibm dataset lifecycle framework
-    # (although maybe from outside w/docker image loading)
 
     export KF_NAME=kf
 

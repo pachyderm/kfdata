@@ -1,3 +1,6 @@
 [submodule "dataset-lifecycle-framework"]
 	path = dataset-lifecycle-framework
 	url = git@github.com:pachyderm/dataset-lifecycle-framework
+[submodule "pach-example/pachyderm"]
+	path = pach-example/pachyderm
+	url = git@github.com:pachyderm/pachyderm

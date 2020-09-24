@@ -15,5 +15,15 @@ export VERSION="$(git rev-parse HEAD)"
 
 # NB: Following line is moved into .testfaster.yml
 #(cd dataset-lifecycle-framework; make minikube-install)
+#(cd dataset-lifecycle-framework/examples/noobaa; ./noobaa_install.sh)
 
-(cd dataset-lifecycle-framework/examples/noobaa; ./noobaa_install.sh)
+# XXX assumes pachctl is installed, and will use configured $KUBECONFIG
+# TODO: install pachctl locally if not existing
+
+(cd pach-example
+ curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+ pachctl create repo input-repo
+ pachctl put file input-repo@master:/mnist.npz -f mnist.npz
+ cd pachyderm/examples/kubeflow/mnist
+ pachctl create pipeline -f pipeline.yaml
+)

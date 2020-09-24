@@ -126,7 +126,7 @@ base:
         git checkout 4d63924caff53b3ff0796306926422c310083410
         make deployment
     )
-    #(cd dataset-lifecycle-framework/examples/noobaa; ./noobaa_install.sh)
+    (cd dataset-lifecycle-framework/examples/noobaa; ./noobaa_install.sh)
 
     # install pachyderm here
     pachctl deploy local

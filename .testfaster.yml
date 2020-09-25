@@ -147,8 +147,16 @@ base:
     kfctl apply -V -f ${CONFIG_URI}
     cd ${BASE_DIR}
 
-    # TODO: disable Istio RBAC to workaround
+    # disable Istio RBAC to workaround
     # https://github.com/kubeflow/pipelines/issues/4440#issuecomment-697920377
+    kubectl apply -f - <<EOF
+    apiVersion: rbac.istio.io/v1alpha1
+    kind: ClusterRbacConfig
+    metadata:
+      name: default
+    spec:
+      mode: "OFF"
+    EOF
 
     # TODO: move the checking for unready pods into testfaster (split startup)
     unready_pods=1

@@ -20,6 +20,9 @@ export VERSION="$(git rev-parse HEAD)"
 # XXX assumes pachctl is installed, and will use configured $KUBECONFIG
 # TODO: install pachctl locally if not existing
 
+# XXX workaround 'connected to the wrong cluster' from running twice against different clusters
+mv ~/.pachyderm/config.json ~/.pachyderm/config.json.backup-$(date +%s)
+
 (cd pach-example
  curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
  pachctl create repo input-repo

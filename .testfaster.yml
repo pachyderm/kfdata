@@ -158,6 +158,29 @@ base:
       mode: "OFF"
     EOF
 
+    # tell kfp that user=anonymous@kubeflow.org even for in-cluster clients
+    # like pachyderm (listenerType=ANY, not GATEWAY)
+    kubectl apply -f - <<EOF
+    apiVersion: networking.istio.io/v1alpha3
+    kind: EnvoyFilter
+    metadata:
+      name: add-user-everywhere
+      namespace: istio-system
+    spec:
+      filters:
+        - filterConfig:
+            inlineCode: |
+              function envoy_on_request(request_handle)
+                  request_handle:headers():add("kubeflow-userid","anonymous@kubeflow.org")
+              end
+          filterName: envoy.lua
+          filterType: HTTP
+          insertPosition:
+            index: FIRST
+          listenerMatch:
+            listenerType: ANY
+    EOF
+
     # TODO: move the checking for unready pods into testfaster (split startup)
     unready_pods=1
     while ((unready_pods > 0)) ; do
@@ -178,6 +201,11 @@ base:
 
     echo "Everything looks good:"
     kubectl get po --all-namespaces
+
+    # Create anonymous namespace (profile) in Kubeflow without having to click
+    # a button on a web page
+    #curl http://localhost:31380/api/workgroup/create
+
 
   # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220
   kubernetes_version: 'v1.17.11'

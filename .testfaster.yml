@@ -147,6 +147,31 @@ base:
     kfctl apply -V -f ${CONFIG_URI}
     cd ${BASE_DIR}
 
+    # TODO: move the checking for unready pods into testfaster (split startup)
+    unready_pods=1
+    while ((unready_pods > 0)) ; do
+        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
+        echo $unready_pods unready pods
+        sleep 1
+    done
+
+    echo "Got all-running pods, but waiting 10 seconds and checking again to check if we reached a stable state"
+    sleep 10
+
+    unready_pods=1
+    while ((unready_pods > 0)) ; do
+        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
+        echo $unready_pods unready pods
+        sleep 1
+    done
+
+    echo "Everything looks good:"
+    kubectl get po --all-namespaces
+
+    # Create anonymous namespace (profile) in Kubeflow without having to click
+    # a button on a web page
+    curl -XPOST http://localhost:31380/api/workgroup/create
+
     # disable Istio RBAC to workaround
     # https://github.com/kubeflow/pipelines/issues/4440#issuecomment-697920377
     kubectl apply -f - <<EOF
@@ -171,40 +196,17 @@ base:
         - filterConfig:
             inlineCode: |
               function envoy_on_request(request_handle)
-                  request_handle:headers():add("kubeflow-userid","anonymous@kubeflow.org")
+                  request_handle:headers():replace("kubeflow-userid","anonymous@kubeflow.org")
               end
           filterName: envoy.lua
           filterType: HTTP
           insertPosition:
             index: FIRST
           listenerMatch:
-            listenerType: ANY
+            listenerType: SIDECAR_INBOUND
     EOF
-
-    # TODO: move the checking for unready pods into testfaster (split startup)
-    unready_pods=1
-    while ((unready_pods > 0)) ; do
-        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
-        echo $unready_pods unready pods
-        sleep 1
-    done
-
-    echo "Got all-running pods, but waiting 10 seconds and checking again to check if we reached a stable state"
-    sleep 10
-
-    unready_pods=1
-    while ((unready_pods > 0)) ; do
-        unready_pods=$(set +o pipefail; kubectl get po --all-namespaces --no-headers |grep -v 'Completed\|Running' |wc -l)
-        echo $unready_pods unready pods
-        sleep 1
-    done
-
-    echo "Everything looks good:"
-    kubectl get po --all-namespaces
-
-    # Create anonymous namespace (profile) in Kubeflow without having to click
-    # a button on a web page
-    #curl http://localhost:31380/api/workgroup/create
+    # Stop header being added multiple times
+    kubectl delete envoyfilter -n istio-system add-user-filter
 
 
   # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220

@@ -29,4 +29,6 @@ mv ~/.pachyderm/config.json ~/.pachyderm/config.json.backup-$(date +%s)
  pachctl put file input-repo@master:/mnist.npz -f mnist.npz
  cd pachyderm/examples/kubeflow/mnist
  pachctl create pipeline -f pipeline.yaml
+ sleep 10
+ pachctl list pipeline
 )

@@ -39,9 +39,6 @@ fi
  make launch-dev
 )
 
-# TODO remove this line once local pachyderm build is working
-exit 0
-
 (cd pach-example
  curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
  pachctl create repo input-repo

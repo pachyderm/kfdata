@@ -21,7 +21,21 @@ export VERSION="$(git rev-parse HEAD)"
 # TODO: install pachctl locally if not existing
 
 # XXX workaround 'connected to the wrong cluster' from running twice against different clusters
-mv ~/.pachyderm/config.json ~/.pachyderm/config.json.backup-$(date +%s)
+if [ -f ~/.pachyderm/config.json ]; then
+    mv ~/.pachyderm/config.json ~/.pachyderm/config.json.backup-$(date +%s)
+fi
+
+(cd pach-example/pachyderm
+ make docker-build
+ for X in worker pachd; do 
+     echo "Copying pachyderm/$X:local to kube"
+     docker save pachyderm/$X:local | pv | testctl ssh --tty=false -- docker load
+ done
+ make launch-dev
+)
+
+# TODO remove this line once local pachyderm build is working
+exit 0
 
 (cd pach-example
  curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz

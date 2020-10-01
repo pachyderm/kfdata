@@ -1,5 +1,12 @@
 #!/bin/bash
+
 set -euo pipefail
+
+(cd pach-example/pachyderm
+ make docker-build
+ make build
+)
+
 testctl get --config .testfaster.yml
 export KUBECONFIG=$(pwd)/kubeconfig
 export VERSION="$(git rev-parse HEAD)"
@@ -26,8 +33,7 @@ if [ -f ~/.pachyderm/config.json ]; then
 fi
 
 (cd pach-example/pachyderm
- make docker-build
- for X in worker pachd; do 
+ for X in worker pachd; do
      echo "Copying pachyderm/$X:local to kube"
      docker save pachyderm/$X:local | pv | testctl ssh --tty=false -- docker load
  done

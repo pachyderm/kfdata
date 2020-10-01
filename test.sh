@@ -4,7 +4,6 @@ set -euo pipefail
 
 (cd pach-example/pachyderm
  make docker-build
- make build
 )
 
 testctl get --config .testfaster.yml

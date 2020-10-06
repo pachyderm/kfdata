@@ -44,7 +44,7 @@ fi
  pachctl create repo input-repo
  pachctl put file input-repo@master:/mnist.npz -f mnist.npz
  cd pachyderm/examples/kubeflow/mnist
- sleep 5
+ sleep 10
  pachctl create pipeline -f pipeline.yaml
  sleep 10
  pachctl list pipeline

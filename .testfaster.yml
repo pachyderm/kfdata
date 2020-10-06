@@ -219,6 +219,6 @@ runtime:
   memory: 16GB
   disk: 100GB
 
-prewarm_pool_size: 3
-max_pool_size: 9
+prewarm_pool_size: 5
+max_pool_size: 15
 default_lease_timeout: "" # Never timeout leases, as we use this for dev

@@ -34,7 +34,7 @@ fi
 (cd pach-example/pachyderm
  for X in worker pachd; do
      echo "Copying pachyderm/$X:local to kube"
-     docker save pachyderm/$X:local | pv | testctl ssh --tty=false -- docker load
+     docker save pachyderm/$X:local |gzip | pv | testctl ssh --tty=false -- sh -c 'gzip -d | docker load'
  done
  make launch-dev
 )
@@ -44,7 +44,13 @@ fi
  pachctl create repo input-repo
  pachctl put file input-repo@master:/mnist.npz -f mnist.npz
  cd pachyderm/examples/kubeflow/mnist
+ sleep 5
  pachctl create pipeline -f pipeline.yaml
  sleep 10
  pachctl list pipeline
+ export PIPELINE_POD=$(kubectl get pods --namespace default -l "app=pipeline-mnist-v1" -o jsonpath="{.items[0].metadata.name}")
+ export PACHD_POD=$(kubectl get pods --namespace default -l "app=pachd" -o jsonpath="{.items[0].metadata.name}")
+ echo PIPELINE_POD=$PIPELINE_POD
+ echo PACHD_POD=$PACHD_POD
+ kubectl logs $PIPELINE_POD storage |grep OnCreate
 )

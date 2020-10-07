@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -xeuo pipefail
 
 (cd pach-example/pachyderm
  make docker-build
@@ -41,10 +41,10 @@ fi
 
 (cd pach-example
  curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+ sleep 10
  pachctl create repo input-repo
  pachctl put file input-repo@master:/mnist.npz -f mnist.npz
  cd pachyderm/examples/kubeflow/mnist
- sleep 10
  pachctl create pipeline -f pipeline.yaml
  sleep 10
  pachctl list pipeline
@@ -52,5 +52,13 @@ fi
  export PACHD_POD=$(kubectl get pods --namespace default -l "app=pachd" -o jsonpath="{.items[0].metadata.name}")
  echo PIPELINE_POD=$PIPELINE_POD
  echo PACHD_POD=$PACHD_POD
+ sleep 10
  kubectl logs $PIPELINE_POD storage |grep OnCreate
+
+ curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/fashion_mnist.npz
+ pachctl put file input-repo@master:/fashion_mnist.npz -f fashion_mnist.npz
+
+ sleep 10
+ kubectl logs $PIPELINE_POD storage |grep OnCreate
+
 )

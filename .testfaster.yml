@@ -118,8 +118,6 @@ base:
     #!/bin/bash
     set -euo pipefail
 
-    # foop.
-    #
     # install ibm dataset lifecycle framework
     # the prewarm script is reproducible because it pins a specific commit
     git clone https://github.com/pachyderm/dataset-lifecycle-framework
@@ -132,6 +130,30 @@ base:
 
     # install pachyderm here
     pachctl deploy local
+
+    # allow pachyderm-worker serviceaccount to create dataset-lifecycle-framework CRDs
+    # for now, we do this by binding the admin clusterrole for expediency.
+    #
+    # TODO: tighten this up when we consider using this for production.
+    kubectl apply -f - <<EOF
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: pachyderm-worker-datasets
+      namespace: default
+      creationTimestamp:
+      labels:
+        app: ''
+        suite: pachyderm
+    subjects:
+    - kind: ServiceAccount
+      name: pachyderm-worker
+      namespace: default
+    roleRef:
+      apiGroup: ''
+      kind: ClusterRole
+      name: admin
+    EOF
 
     export KF_NAME=kf
 

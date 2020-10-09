@@ -73,8 +73,6 @@ base:
    - mpioperator/mpi-operator:latest
    - mysql:8
    - mysql:8.0.3
-   - noobaa/noobaa-core:5.2.13
-   - noobaa/noobaa-operator:2.0.10
    - pachyderm/dash:0.5.48
    - pachyderm/etcd:v3.3.5
    - pachyderm/grpc-proxy:0.4.10
@@ -126,7 +124,6 @@ base:
         git checkout 4d63924caff53b3ff0796306926422c310083410
         make deployment
     )
-    (cd dataset-lifecycle-framework/examples/noobaa; ./noobaa_install.sh)
 
     # install pachyderm here
     pachctl deploy local
@@ -134,6 +131,7 @@ base:
     # allow pachyderm-worker serviceaccount to create dataset-lifecycle-framework CRDs
     kubectl apply -f - <<EOF
     kind: ClusterRole
+    apiVersion: rbac.authorization.k8s.io/v1
     metadata:
       name: dataset-admin
     rules:

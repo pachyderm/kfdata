@@ -132,9 +132,20 @@ base:
     pachctl deploy local
 
     # allow pachyderm-worker serviceaccount to create dataset-lifecycle-framework CRDs
-    # for now, we do this by binding the admin clusterrole for expediency.
-    #
-    # TODO: tighten this up when we consider using this for production.
+    kubectl apply -f - <<EOF
+    kind: ClusterRole
+    metadata:
+      name: dataset-admin
+    rules:
+    - apiGroups:
+      - com.ie.ibm.hpsys
+      resources:
+      - '*'
+      - datasetsinternal
+      verbs:
+      - '*'
+    EOF
+
     kubectl apply -f - <<EOF
     kind: ClusterRoleBinding
     apiVersion: rbac.authorization.k8s.io/v1
@@ -152,7 +163,7 @@ base:
     roleRef:
       apiGroup: ''
       kind: ClusterRole
-      name: admin
+      name: dataset-admin
     EOF
 
     export KF_NAME=kf

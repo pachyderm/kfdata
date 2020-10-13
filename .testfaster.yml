@@ -116,12 +116,6 @@ base:
     #!/bin/bash
     set -euo pipefail
 
-    # Add kubernetes' default DNS server IP address to resolv.conf on the host,
-    # so that storage plugins can resolve the s3 services provided by
-    # pachyderm.  See: https://github.com/kubernetes/kubernetes/issues/42306
-    awk 'NR==2 {print "nameserver 10.96.0.10"} 1' /etc/resolv.conf > /etc/resolv.conf.new
-    mv /etc/resolv.conf.new /etc/resolv.conf
-
     # install ibm dataset lifecycle framework
     # the prewarm script is reproducible because it pins a specific commit
     git clone https://github.com/pachyderm/dataset-lifecycle-framework

@@ -44,6 +44,8 @@ fi
  ./build.sh
 )
 
+set +x
+
 echo
 echo
 echo
@@ -58,4 +60,5 @@ echo "testctl ip # <- then go to the web UI, observe one pipeline run happens"
 echo "curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/fashion_mnist.npz"
 echo "pachctl put file input-repo@master:/fashion_mnist.npz -f fashion_mnist.npz"
 echo "# now look at the web ui, observe that only the incremental data was visible to the job"
-echo "# and yet, both data files are stored in pachyderm along with full version history and provenance"
+echo "# and yet, both data files are stored in pachyderm along with full version history and provenance:"
+echo "pachctl list file input-repo@master"

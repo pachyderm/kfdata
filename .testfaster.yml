@@ -205,6 +205,10 @@ base:
     # a button on a web page
     curl -XPOST http://localhost:31380/api/workgroup/create
 
+    # label the namespace as one for dataset-lifecycle-framework to observe
+    # with its admission controller
+    kubectl label namespace anonymous monitor-pods-datasets=enabled
+
     # disable Istio RBAC to workaround
     # https://github.com/kubeflow/pipelines/issues/4440#issuecomment-697920377
     kubectl apply -f - <<EOF

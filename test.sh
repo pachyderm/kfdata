@@ -53,13 +53,17 @@ fi
  export PACHD_POD=$(kubectl get pods --namespace default -l "app=pachd" -o jsonpath="{.items[0].metadata.name}")
  echo PIPELINE_POD=$PIPELINE_POD
  echo PACHD_POD=$PACHD_POD
+ kubectl get po -n anonymous
  sleep 10
+ kubectl get po -n anonymous
  kubectl logs $PIPELINE_POD storage |grep OnCreate
 
  curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/fashion_mnist.npz
  pachctl put file input-repo@master:/fashion_mnist.npz -f fashion_mnist.npz
 
+ kubectl get po -n anonymous
  sleep 10
+ kubectl get po -n anonymous
  kubectl logs $PIPELINE_POD storage |grep OnCreate
 
 )

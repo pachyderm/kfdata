@@ -121,7 +121,7 @@ base:
     git clone https://github.com/pachyderm/dataset-lifecycle-framework
     (
         cd dataset-lifecycle-framework
-        git checkout 976107ff091e7b4fa0f54c6776793feadd5c721b
+        git checkout 636a74a24a2007a73001cf5b65620858d980269d
         make deployment
     )
 

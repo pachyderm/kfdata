@@ -1,7 +1,0 @@
-domain: pachyderm.io
-repo: kfdata
-resources:
-- group: kfdata
-  kind: Dataset
-  version: v1
-version: "2"

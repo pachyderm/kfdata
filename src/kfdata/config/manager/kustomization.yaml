@@ -1,8 +1,0 @@
-resources:
-- manager.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-images:
-- name: controller
-  newName: ghcr.io/pachyderm/kfdata
-  newTag: 20f70f287f1138950e68d4b3ea0a929148b52f44
